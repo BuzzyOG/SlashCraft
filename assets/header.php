@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-	<title>Shove - The image sharing service</title>
+	<title>Slashcraft Network</title>
 
 <!-- ////////////////////////////////////
 	HEADER LINKS

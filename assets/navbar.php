@@ -15,7 +15,9 @@
 						<li><a href="appeals">Appeals</a></li>
 					</ul>
 					<ul class="nav pull-right navbar-nav">
-						<li><a href="login" class="download" data-spy="affix" data-offset-top="450">Login / Register</a></li>
+						<li><a href="login.php" class="download" data-spy="affix" data-offset-top="450">
+							<?php echo $navlogin; ?>
+						</a></li>
 					</ul>
 				</div>
 			</div><!--CONTAINER-->

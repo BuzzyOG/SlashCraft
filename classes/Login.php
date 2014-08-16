@@ -88,13 +88,13 @@ class Login
                         $_SESSION['user_login_status'] = 1;
 
                     } else {
-                        $this->errors[] = "Wrong password. Try again.";
+                        $this->errors[] = "<div class='alert alert-danger center' role='alert'> Wrong password. Try again. </div>";
                     }
                 } else {
-                    $this->errors[] = "This user does not exist.";
+                    $this->errors[] = "<div class='alert alert-danger center' role='alert'> This user does not exist. </div>";
                 }
             } else {
-                $this->errors[] = "Database connection problem.";
+                $this->errors[] = "<div class='alert alert-danger center' role='alert'> Database connection problem. </div>";
             }
         }
     }
@@ -108,7 +108,9 @@ class Login
         $_SESSION = array();
         session_destroy();
         // return a little feeedback message
-        $this->messages[] = "You have been logged out.";
+        $this->messages[] = "<div class='alert alert-warning center' role='alert'>You have been logged out.</div>";
+
+
 
     }
 
@@ -125,3 +127,4 @@ class Login
         return false;
     }
 }
+?>

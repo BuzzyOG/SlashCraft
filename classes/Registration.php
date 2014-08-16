@@ -92,7 +92,7 @@ class Registration
                 $query_check_user_name = $this->db_connection->query($sql);
 
                 if ($query_check_user_name->num_rows == 1) {
-                    $this->errors[] = "Sorry, that username / email address is already taken.";
+                    $this->errors[] = "<div class='alert alert-danger center' role='alert'> Sorry, that username / email address is already taken. </div>";
                 } else {
                     // write new user's data into database
                     $sql = "INSERT INTO users (user_name, user_password_hash, user_email)
@@ -101,16 +101,16 @@ class Registration
 
                     // if user has been added successfully
                     if ($query_new_user_insert) {
-                        $this->messages[] = "Your account has been created successfully. You can now log in.";
+                        $this->messages[] = "<div class='alert alert-success center' role='alert'> Your account has been created successfully. You can now log in. </div>";
                     } else {
-                        $this->errors[] = "Sorry, your registration failed. Please go back and try again.";
+                        $this->errors[] = "<div class='alert alert-danger center' role='alert'> Sorry, your registration failed. Please go back and try again. </div>";
                     }
                 }
             } else {
-                $this->errors[] = "Sorry, no database connection.";
+                $this->errors[] = "<div class='alert alert-danger center' role='alert'> Sorry, no database connection. </div>";
             }
         } else {
-            $this->errors[] = "An unknown error occurred.";
+            $this->errors[] = "<div class='alert alert-danger center' role='alert'> An unknown error occurred. </div>";
         }
     }
 }
