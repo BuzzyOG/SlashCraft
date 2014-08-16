@@ -1,0 +1,15 @@
+#
+#	  Author :		Luke Brown
+#	  License:  	Contracted work - Written permission required from me for third party use.
+#	  Created: 		August 2014
+#	  URL    :		https://github.com/LukeXF/shove-website
+#	  Contact:		me@luke.sx
+#
+
+RewriteEngine On
+Options -Indexes
+ErrorDocument 403 http://demo.luke.sx/slashcraft/
+ErrorDocument 404 http://demo.luke.sx/slashcraft/
+
+# don't touch /assets URIs
+RewriteRule ^assets/ - [L,NC]
