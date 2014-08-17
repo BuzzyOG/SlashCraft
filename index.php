@@ -20,10 +20,14 @@ require_once("classes/Login.php");
 // so this single line handles the entire login process. in consequence, you can simply ...
 $login = new Login();
 
+
+$loggedNameAndAvatar = "Welcome <b>" . $_SESSION['user_name'] . " </b> <img style='border-radius: 25%;' src='https://minotar.net/avatar/". $_SESSION['user_name'] . "/20'> ";
+
+
 if ($login->isUserLoggedIn() == true) {
-   $navlogin = "Welcome " . $_SESSION['user_name'];
+   $navlogin = $loggedNameAndAvatar;
 } else {
-    $navlogin = "Login / Register";
+    $navlogin = " Login / Register";
 }
 
 

@@ -14,7 +14,7 @@
 				<div class="form-box">
 					<form>
 						<h3>Your account is...</h3>
-						<button class="btn btn-success verified btn-block login"></button>
+						<button class="btn <?php echo $verifedBoxDisplay[0]; ?> btn-block login"></button>
 					</form>
 					<br><a href="login.php?logout">Logout</a>
 				</div>
@@ -22,7 +22,9 @@
 
 			<div class="col-md-3 greyinfo">
 				<h4 class="left">Your Email</h4>
-				<h3>me@luke.sx</h3>
+				<h3><?php echo $_SESSION['user_email'];?></h3>
+				<h4 class="left">Your UUID</h4>
+				<h3><?php echo $_SESSION['user_uuid'];?></h3>
 			</div>
 
 			<div class="col-md-3">
@@ -54,6 +56,7 @@
 
 			<div class="col-md-3">
 				<h3 class="greystuff">Infractions</h3>
+				<?php  echo $user_id;  echo $_SESSION['user_confirm']; echo  $_SESSION['user_name']; echo $_SESSION['user_password_hash']; echo $_SESSION['user_email'] ?>
 			</div>
 
 			<div class="col-md-3">

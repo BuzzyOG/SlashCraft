@@ -88,6 +88,10 @@ text-decoration: none;
 	font-weight: bold;
 }
 
+.notverified:after {
+	content: "not verified";
+	font-weight: bold;
+}
 
 
 
