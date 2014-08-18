@@ -14,9 +14,9 @@
 				<div class="form-box">
 					<form>
 						<h3>Your account is...</h3>
-						<button class="btn <?php echo $verifedBoxDisplay[0]; ?> btn-block login"></button>
+						<button class="btn <?php echo $VerifiedBoxDisplay[0]; ?> btn-block login"></button>
 					</form>
-					<br><a href="login.php?logout">Logout</a>
+					<br><a href="myaccount.php?logout">Logout</a>
 				</div>
 			</div>
 
@@ -31,7 +31,7 @@
 				<div class="form-box">
 					<a href=""><button class="btn btn-primary btn-block login" type="submit"  name="login" value="Login">Contact Support</button></a>
 					<a href=""><button class="btn btn-primary btn-block login" type="submit"  name="login" value="Login">Abuse System</button></a>
-					<a href="login.php?logout"><button class="btn btn-danger btn-block login" type="submit"  name="login" value="Login">Logout</button></a>
+					<a href="myaccount.php?logout"><button class="btn btn-danger btn-block login" type="submit"  name="login" value="Login">Logout</button></a>
 				</div>
 			</div>
 		</div>
@@ -56,7 +56,7 @@
 
 			<div class="col-md-3">
 				<h3 class="greystuff">Infractions</h3>
-				<?php  echo $user_id;  echo $_SESSION['user_confirm']; echo  $_SESSION['user_name']; echo $_SESSION['user_password_hash']; echo $_SESSION['user_email'] ?>
+				<?php  echo $user_id . "<br>" . $_SESSION['user_uuid'] . "<br>" . $_SESSION['user_get_uuid'] ?>
 			</div>
 
 			<div class="col-md-3">

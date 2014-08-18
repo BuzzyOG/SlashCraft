@@ -29,6 +29,24 @@ if ($login->isUserLoggedIn() == true) {
 }
 
 
+
+$uuidLength = $_SESSION['user_uuid'];
+if (strlen($uuidLength) > 0) {
+    $isVerified = true;
+} else {
+    $isVerified = false;
+}
+
+if ($isVerified == true) {
+    $VerifiedBoxDisplay = array(
+    "btn-success verified",
+    "verified");
+} else {
+    $VerifiedBoxDisplay = array(
+    "btn-danger notverified",
+    "verified");
+}
+
 ?>
 <?php include './assets/navbar.php'; ?>
 

@@ -20,7 +20,7 @@ if (isset($login)) {
         <div id="output"></div>
         <div class="avatar"></div>
         <div class="form-box">
-            <form method="post" action="login.php" name="loginform">
+            <form method="post" action="myaccount.php" name="loginform">
                 <input id="login_input_username" class="login_input" name="user_name" required type="text" placeholder="username">
                 <input id="login_input_password" class="login_input" type="password" name="user_password" autocomplete="off" required placeholder="password">
                 <button class="btn btn-info btn-block login" type="submit"  name="login" value="Login">Login</button>

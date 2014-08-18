@@ -37,6 +37,10 @@ class Login
         elseif (isset($_POST["login"])) {
             $this->dologinWithPostData();
         }
+
+        if (isset($_GET["user"])) {
+            $this->getPlayerRequest();
+        }
     }
 
     /**
@@ -86,7 +90,6 @@ class Login
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_uuid'] = $result_row->user_uuid;
-                        $_SESSION['user_confirm'] = $result_row->user_confirm;
                         $_SESSION['user_login_status'] = 1;
 
                     } else {
@@ -101,59 +104,56 @@ class Login
         }
     }
 
-        /**
-     * log in with post data
+
+    /**
+     * get player information from a get request
      */
-    private function dodisplaybWithGetData()
+    private function getPlayerRequest()
     {
+        // create a database connection, using the constants from config/db.php (which we loaded in index.php)
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-            // create a database connection, using the constants from config/db.php (which we loaded in index.php)
-            $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        // change character set to utf8 and check it
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
 
-            // change character set to utf8 and check it
-            if (!$this->db_connection->set_charset("utf8")) {
-                $this->errors[] = $this->db_connection->error;
-            }
+        // if no connection errors (= working database connection)
+        if (!$this->db_connection->connect_errno) {
 
-            // if no connection errors (= working database connection)
-            if (!$this->db_connection->connect_errno) {
+            // Sets the $_GET information to a variable
+            //  http://demo.luke.sx/slashcraft?user=DiamondXF
 
-                // escape the POST stuff
-                $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
+            // escape the POST stuff
+            $getUser = $this->db_connection->real_escape_string($_GET['user']);
 
-                // database query, getting all the info of the selected user (allows login via email address in the
-                // username field)
-                $sql = "SELECT user_name, user_email, user_password_hash, user_uuid
-                        FROM users
-                        WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
-                $result_of_login_check = $this->db_connection->query($sql);
+            // database query, getting all the info of the selected user
+            $sql = "SELECT *
+                    FROM users
+                    WHERE user_name = '" . $getUser . "';";
+            $result_of_user_select = $this->db_connection->query($sql);
 
-                // if this user exists
-                if ($result_of_login_check->num_rows == 1) {
+            // if this user exists
+            if ( $result_of_user_select->num_rows == 1) {
 
-                    // get result row (as an object)
-                    $result_row = $result_of_login_check->fetch_object();
+                // get result row (as an object)
+                $result_row = $result_of_user_select->fetch_object();
 
-                    // using PHP 5.5's password_verify() function to check if the provided password fits
-                    // the hash of that user's password
-                    if (password_verify($_POST['user_password'], $result_row->user_password_hash)) {
+                // using PHP 5.5's password_verify() function to check if the provided password fits
+                // the hash of that user's password
 
-                        // write user data into PHP SESSION (a file on your server)
-                        $_SESSION['user_name'] = $result_row->user_name;
-                        $_SESSION['user_email'] = $result_row->user_email;
-                        $_SESSION['user_uuid'] = $result_row->user_uuid;
-                        $_SESSION['user_confirm'] = $result_row->user_confirm;
-                        $_SESSION['user_login_status'] = 1;
+                    // write user data into PHP SESSION (a file on your server)
+                    $_SESSION['user_get_name'] = $result_row->user_name;
+                    $_SESSION['user_get_email'] = $result_row->user_email;
+                    $_SESSION['user_get_uuid'] = $result_row->user_uuid;
+                    $_SESSION['user_get_confirm'] = $result_row->user_confirm;
 
-                    } else {
-                        $this->errors[] = "<div class='alert alert-danger center' role='alert'> Wrong password. Try again. </div>";
-                    }
-                } else {
-                    $this->errors[] = "<div class='alert alert-danger center' role='alert'> This user does not exist. </div>";
-                }
+                
             } else {
-                $this->errors[] = "<div class='alert alert-danger center' role='alert'> Database connection problem. </div>";
+                $this->errors[] = "<div class='alert alert-danger center' role='alert'> This user does not exist. </div>";
             }
+        } else {
+            $this->errors[] = "<div class='alert alert-danger center' role='alert'> Database connection problem. </div>";
         }
     }
 
@@ -184,28 +184,11 @@ class Login
         // default return
         return false;
     }
-}
 
     /**
      * performs the verification check to see if the user 
      * has confirmed their Minecraft account.
      */
-
-    if (strlen($uuidLength) == 0) {
-        $isVerifed = true;
-    } else {
-        $isVerifed = false;
-    }
-
-    if ($isVerifed == true) {
-        $verifedBoxDisplay = array(
-        "btn-success verified",
-        "verified");
-    } else {
-        $verifedBoxDisplay = array(
-        "btn-danger notverified",
-        "verified");
-    }
-
+}
 
 ?>
